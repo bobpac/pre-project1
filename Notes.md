@@ -29,7 +29,7 @@ of objects and, at the end of the game, guess a rebus puzzle.
 
 1. Game consists of a single player.
 
-2. A players turn includes clicking the mouse over two squares to reveal an emoji hiding underneath. If the player finds a matching set of emojies, the squares will reveal a part of the rebus puzzle underneath. If the player does not find a matching set of emojies, the number of the square is put back.
+2. A player's turn includes clicking the mouse over two squares to reveal an emoji hiding underneath. If the player finds a matching set of emojies, the squares will reveal a part of the rebus puzzle underneath. If the player does not find a matching set of emojies, the number of the square is put back.
 
 3. Player must find all 15 matching pairs of emojis within 30 guesses to win the game.
 
@@ -68,7 +68,7 @@ of objects and, at the end of the game, guess a rebus puzzle.
      "img" : "img/emoji/duck.png",                  // 9 
    }
 
-   REGIS_PUZZLE = { // partial list
+   REBUS_PUZZLE = { // partial list
       "img" : "img/null.png",      "solution" : "",  "phoneticSolution" : ""   // 0
       "img" : "img/puzzle1.png",   "solution" : "",  "phoneticSolution" : ""   // 0
       "img" : "img/puzzle2.png",   "solution" : "",  "phoneticSolution" : ""   // 1
@@ -82,20 +82,20 @@ of objects and, at the end of the game, guess a rebus puzzle.
 ### State Variables
 
 - board             - 5x6 array - each square has a z-index value of what should 
-                    be displayed ( 0, 1, 2 ). 0 = number, 1 = emoji, 2 = regus
+                    be displayed ( 0, 1, 2 ). 0 = number, 1 = emoji, 2 = rebus
 - emojiBoard        - 5x6 array - each square holds an emoji index
 - numGuesses        - player is allowed 30 guesses total
 - squareSelected[2] -  player is allowed to select two squares per turn (stores 
                      what "id" is selected).
-- regusNum          - stores which puzzle num should be displayed
+- rebusNum          - stores which puzzle num should be displayed
 
 
 ### Cached DOM Elements
 - title (Concentration)
 - board (5x6 grid)
 - statusBox (display directions (in index.html) and gives feedback)
-- regusAnswerBox (input guess)
-- regusSubmitBox (submit guess)
+- rebusAnswerBox (input guess)
+- rebusSubmitBox (submit guess)
 - playButton (play/restart game)
 - numGuessesBox (displays how many guesses used)
 
@@ -107,7 +107,7 @@ of objects and, at the end of the game, guess a rebus puzzle.
    numGuessses = -1
 
 2. When numGuesses is -1:
-   - regisNum = (randdmly select one of the puzzles)
+   - rebusNum = (randdmly select one of the puzzles)
    ```
    SquaresSelected[2] = { 0, 0};
    board = { // board should display number
@@ -128,8 +128,8 @@ of objects and, at the end of the game, guess a rebus puzzle.
      ```
    - board eventlister ignores click event 
    - statusBox "To start: press 'Start Game' button" is appended to the .innerText.
-   - regusAnswerBox - hidden
-   - regusSubmitBox - hidden
+   - rebusAnswerBox - hidden
+   - rebusSubmitBox - hidden
    - playButton - shows "Start Game"
    - numGuessesBox - hidden
 
@@ -140,8 +140,8 @@ of objects and, at the end of the game, guess a rebus puzzle.
    - squareSelected[0].id = 0
    - squareSelected[1].id = 0
    - board eventlister listens for click event 
-   - regusAnswerBox - hidden
-   - regusSubmitBox - hidden
+   - rebusAnswerBox - hidden
+   - rebusSubmitBox - hidden
    - playButton - hidden
    - numGuessesBox - shows "Number of Guesses " + *numGuesses* + " of " +  *MAX_GUESSES*;
 
@@ -156,17 +156,17 @@ of objects and, at the end of the game, guess a rebus puzzle.
                   - board eventlister ignores click event 
                   - all elements of board array should get set to '2' to display the rebus puzzle
                   - StatusBox shows "I'm sorry, you did not win. Try to guess the answer to the Rebus Puzzle" in Black
-                  - regusAnswerBox - display
-                  - regusSubmitBox - display
+                  - rebusAnswerBox - display
+                  - rebusSubmitBox - display
                   - numGuessesBox - hidden
                   - playButton - hidden
 
-3. When the regusSubmitBox is clicked
-   - Retrieves the player's answer in regusAnswerBox
-   - Is the player's answer === REGIS_PUZZLE[regisNum].solution ?
+3. When the rebusSubmitBox is clicked
+   - Retrieves the player's answer in rebusAnswerBox
+   - Is the player's answer === REBUS_PUZZLE[rebusNum].solution ?
       - If yes, statusBox shows "You're Right!"
       - If no,  statusBox shows "Ahh, sorry. <players answer> is not correct. Good Guess!";
-   - regusAnswerBox - hidden
-   - regusSubmitBox - hidden
+   - rebusAnswerBox - hidden
+   - rebusSubmitBox - hidden
    - numGuessesBox - hidden
    - playButton - shows "New Game"
